@@ -1,0 +1,66 @@
+---
+title: "Next.js App Router入門"
+description: "Next.js 14のApp Routerの基本的な使い方を解説します。"
+date: "2024-12-01"
+tags: ["Next.js", "React", "チュートリアル"]
+---
+
+## App Routerとは
+
+Next.js 13から導入された新しいルーティングシステムです。ファイルベースのルーティングをより直感的に行えます。
+
+## ディレクトリ構造
+
+```
+app/
+├── layout.tsx      # ルートレイアウト
+├── page.tsx        # ホームページ
+├── posts/
+│   └── [slug]/
+│       └── page.tsx  # 動的ルート
+└── globals.css
+```
+
+## Server Components
+
+App Routerでは、デフォルトでServer Componentsが使われます：
+
+```tsx
+// サーバーコンポーネント（デフォルト）
+export default async function Page() {
+  const data = await fetchData(); // サーバーで実行
+  return <div>{data}</div>;
+}
+```
+
+クライアントコンポーネントを使う場合は `"use client"` を追加します：
+
+```tsx
+"use client";
+
+import { useState } from "react";
+
+export default function Counter() {
+  const [count, setCount] = useState(0);
+  return (
+    <button onClick={() => setCount(count + 1)}>
+      Count: {count}
+    </button>
+  );
+}
+```
+
+## メタデータ
+
+SEO対策も簡単です：
+
+```tsx
+export const metadata = {
+  title: "ページタイトル",
+  description: "ページの説明",
+};
+```
+
+## まとめ
+
+App Routerを使うことで、より効率的なNext.jsアプリケーションを構築できます。
