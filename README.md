@@ -1,36 +1,99 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Tech Blog
 
-## Getting Started
+Next.js + MDX で構築した技術ブログです。
 
-First, run the development server:
+## 機能
+
+- MDX で記事を執筆
+- ダークモード対応
+- シンタックスハイライト
+- レスポンシブデザイン
+
+## ローカル開発
 
 ```bash
+# 依存関係のインストール
+npm install
+
+# 開発サーバーの起動
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+[http://localhost:3000](http://localhost:3000) をブラウザで開いてください。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 記事の追加方法
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+`content/posts/` に `.mdx` ファイルを追加します：
 
-## Learn More
+```mdx
+---
+title: "記事タイトル"
+description: "記事の説明"
+date: "2024-12-02"
+tags: ["タグ1", "タグ2"]
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 見出し
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+記事の本文...
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Vercelへのデプロイ方法
 
-## Deploy on Vercel
+### 方法1: Vercel ダッシュボードから（推奨・簡単）
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. [Vercel](https://vercel.com) にアクセスしてログイン（GitHubアカウントでログイン可能）
+2. 「Add New...」→「Project」をクリック
+3. 「Import Git Repository」から `tech-blog` リポジトリを選択
+4. 「Deploy」をクリック
+5. 数分でデプロイ完了！URLが発行されます
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 方法2: Vercel CLI から
+
+```bash
+# Vercel CLIのインストール（未インストールの場合）
+npm install -g vercel
+
+# プロジェクトディレクトリで実行
+cd ~/Desktop/tech-blog
+
+# Vercelにログイン（初回のみ）
+vercel login
+
+# デプロイ（プレビュー）
+vercel
+
+# 本番デプロイ
+vercel --prod
+```
+
+### 自動デプロイ設定
+
+VercelとGitHubを連携すると：
+- `main` ブランチへのプッシュ → 自動で本番デプロイ
+- プルリクエスト → 自動でプレビューデプロイ
+
+## プロジェクト構造
+
+```
+tech-blog/
+├── content/
+│   └── posts/          # MDX記事ファイル
+├── src/
+│   ├── app/
+│   │   ├── layout.tsx  # 共通レイアウト
+│   │   ├── page.tsx    # トップページ
+│   │   └── posts/[slug]/
+│   │       └── page.tsx # 記事詳細ページ
+│   ├── components/     # Reactコンポーネント
+│   └── lib/
+│       └── posts.ts    # 記事取得ロジック
+└── public/             # 静的ファイル
+```
+
+## 技術スタック
+
+- [Next.js 16](https://nextjs.org/) - Reactフレームワーク
+- [MDX](https://mdxjs.com/) - Markdown + JSX
+- [Tailwind CSS](https://tailwindcss.com/) - CSSフレームワーク
+- [next-themes](https://github.com/pacocoursey/next-themes) - ダークモード
